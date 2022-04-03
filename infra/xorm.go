@@ -3,6 +3,7 @@ package infra
 import (
 	"log"
 
+	"github.com/A-ichi11/xorm-search/model"
 	_ "github.com/go-sql-driver/mysql"
 	"xorm.io/xorm"
 )
@@ -17,15 +18,17 @@ func DBInit() *xorm.Engine {
 	engine.ShowSQL(true)
 
 	// ユーザーテーブルが存在するかチェック
-	exist, err := engine.IsTableExist("users")
-	if err != nil {
-		log.Fatal(err)
-	}
+	// exist, err := engine.IsTableExist("users")
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 
-	// 存在しなければテーブルを作成します
-	if !exist {
-		engine.CreateTables(&model.Users{})
-	}
+	// // 存在しなければテーブルを作成します
+	// if !exist {
+	// 	engine.CreateTables(&model.Users{})
+	// }
+	// engine.DropTables(&model.Users{})
+	engine.Sync2(new(model.Users))
 
 	return engine
 }

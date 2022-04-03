@@ -1,7 +1,7 @@
 package model
 
 type Users struct {
-	UserID int `xorm:"user_id pk autoink"`
-	Name   string
-	Age    int
+	ID      int    `xorm:"id pk autoink"`
+	Name    string `xorm:"name"`
+	Address string `xorm:"address"`
 }
