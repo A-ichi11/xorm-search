@@ -9,6 +9,8 @@ import (
 	"xorm.io/xorm"
 )
 
+var searchWords string = "佐"
+
 func main() {
 	// engineを作成します。
 	engine := infra.DBInit()
@@ -18,24 +20,29 @@ func main() {
 	// 	Address: "大阪府",
 	// }
 	// user2 := model.Users{
-	// 	Name:    "田中次郎",
+	// 	Name:    "田中隆二",
 	// 	Address: "京都府",
 	// }
 	// user3 := model.Users{
 	// 	Name:    "佐々木太一",
 	// 	Address: "東京都",
 	// }
+	// user4 := model.Users{
+	// 	Name:    "佐々木次郎",
+	// 	Address: "東京都",
+	// }
 
 	// users := []*model.Users{
-	// 	&user1,
-	// 	&user2,
-	// 	&user3,
+	// 	// &user1,
+	// 	// &user2,
+	// 	// &user3,
+	// 	// &user3,
+	// 	&user4,
 	// }
 
 	// create(*engine, users)
 	// find(*engine)
 
-	searchWords := "太"
 	// searchForwordMatch(*engine, searchWords)
 	// searchBackwordMatch(*engine, searchWords)
 	searchPartialMatch(*engine, searchWords)
@@ -55,8 +62,7 @@ func create(engine xorm.Engine, users []*model.Users) {
 func find(engine xorm.Engine) {
 	users := []model.Users{}
 	// addressが大阪府のuserを全件取得します
-	engine.Where("address = ?", "大阪府")
-	err := engine.Find(&users)
+	err := engine.Where("address = ?", "大阪府").Find(&users)
 	if err != nil {
 		log.Fatal(err)
 	}
